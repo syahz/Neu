@@ -15,6 +15,15 @@ export const register = async (req: Request, res: Response, next: NextFunction) 
   }
 }
 
+export const test = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    res.status(200).json({
+      data: 'OK'
+    })
+  } catch (e) {
+    next(e)
+  }
+}
 export const login = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const request: LoginUserRequest = req.body as LoginUserRequest

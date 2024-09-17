@@ -1,4 +1,4 @@
-import bcrypt from 'bcrypt'
+import bcrypt from 'bcryptjs'
 import { Validation } from '../validation/validation'
 import { prismaClient } from '../application/database'
 import { ResponseError } from '../error/response-error'

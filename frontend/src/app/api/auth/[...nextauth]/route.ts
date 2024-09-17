@@ -11,7 +11,7 @@ const handler = NextAuth({
       },
       async authorize(credentials) {
         try {
-          const res = await fetch('http://localhost:4000/api/login', {
+          const res = await fetch('http://backend:4000/api/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -22,8 +22,12 @@ const handler = NextAuth({
 
           const user = await res.json()
 
-          if (res.ok && user?.data) {
-            // Return user data from backend to NextAuth
+          // Jika respons tidak OK, lemparkan error dari backend
+          if (!res.ok) {
+            throw new Error(user.errors || 'Login failed')
+          }
+
+          if (user?.data) {
             return {
               id: user.data.userId,
               fullName: user.data.fullName,
@@ -32,9 +36,10 @@ const handler = NextAuth({
           }
 
           return null
-        } catch (error) {
+        } catch (error: any) {
           console.error('Login error:', error)
-          return null
+          // Kirimkan pesan error yang lebih jelas
+          throw new Error(error.message || 'Something went wrong')
         }
       }
     })
@@ -65,7 +70,7 @@ const handler = NextAuth({
       return session
     }
   },
-  debug: false // Enable debug logs
+  debug: true // Enable debug logs
 })
 
 export { handler as GET, handler as POST }
