@@ -32,9 +32,10 @@ services:
     ports:
       - "3000:3000"
     environment:
-      NEXT_PUBLIC_API_BASE_URL: "http://backend:4000" 
+      NEXT_PUBLIC_API_BASE_URL: "https://chat-app.ingsun.co/backend"
       NEXTAUTH_SECRET: "your_generated_secret"
       NEXTAUTH_URL: "http://localhost:3000"
+      REACT_APP_API_BASE_URL: "https://chat-app.ingsun.co/backend"
     networks:
       - app-network
 

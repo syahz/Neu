@@ -11,7 +11,8 @@ const handler = NextAuth({
       },
       async authorize(credentials) {
         try {
-          const res = await fetch('http://backend:4000/api/login', {
+	
+          const res = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/login`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({

@@ -26,10 +26,12 @@ export const SocketContextProvider: React.FC<SocketContextProviderProps> = ({ ch
   const [socket, setSocket] = useState<Socket | null>(null)
   const [onlineUsers, setOnlineUsers] = useState<string[]>([])
   const { user: authUser } = useAuth()
+  const socketUrl = process.env.REACT_APP_API_BASE_URL as string
 
   useEffect(() => {
     if (authUser) {
-      const newSocket = io('http://localhost:4000', {
+      const newSocket = io('https://chat-app.ingsun.co', {
+        path: '/backend/socket.io',
         query: {
           userId: authUser.id
         }
