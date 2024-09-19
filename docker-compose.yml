@@ -19,8 +19,10 @@ services:
       context: ./backend
     ports:
       - "4000:4000"
+    env_file:
+      - ./backend/.env.${ENVIRONMENT:-development}
     environment:
-      DATABASE_URL: "mysql://root:your_mysql_root_password@mysql:3306/chat_app"
+      - ENVIRONMENT=${ENVIRONMENT:-development}
     depends_on:
       - mysql
     networks:
@@ -29,13 +31,13 @@ services:
   frontend:
     build:
       context: ./frontend
+      dockerfile: Dockerfile.${ENVIRONMENT:-development}  
     ports:
       - "3000:3000"
+    env_file:
+      - ./frontend/.env.${ENVIRONMENT:-development}
     environment:
-      NEXT_PUBLIC_API_BASE_URL: "https://chat-app.ingsun.co/backend"
-      NEXTAUTH_SECRET: "your_generated_secret"
-      NEXTAUTH_URL: "http://localhost:3000"
-      REACT_APP_API_BASE_URL: "https://chat-app.ingsun.co/backend"
+      - ENVIRONMENT=${ENVIRONMENT:-development}
     networks:
       - app-network
 

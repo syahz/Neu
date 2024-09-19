@@ -22,12 +22,9 @@ const MessageInput = () => {
       message: message
     }
 
-    console.log(messageRequest)
-
     try {
       await sendMessageMutation.mutateAsync(messageRequest)
     } catch (error: any) {
-      console.log(error)
       toast({
         variant: 'default',
         title: 'Errors!',

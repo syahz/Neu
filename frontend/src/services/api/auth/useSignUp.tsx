@@ -7,7 +7,6 @@ const mutateSignUp = async (values: SignUpRequest) => {
     const response = await axiosInstance.post('/api/register', values)
     return response
   } catch (error) {
-    console.log(error)
     throw error
   }
 }

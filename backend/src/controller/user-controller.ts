@@ -1,7 +1,6 @@
-import { UserRequest } from '../type/user-request'
 import { UserService } from '../services/user-service'
 import { Request, Response, NextFunction } from 'express'
-import { CreateUserRequest, LoginUserRequest, UpdateUserRequest } from '../models/user-model'
+import { CreateUserRequest, LoginUserRequest } from '../models/user-model'
 
 export const register = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -17,8 +16,11 @@ export const register = async (req: Request, res: Response, next: NextFunction) 
 
 export const test = async (req: Request, res: Response, next: NextFunction) => {
   try {
+    const frontendUrl = process.env.FRONTEND_URL
+
+    console.log(frontendUrl)
     res.status(200).json({
-      data: 'OK'
+      data: frontendUrl
     })
   } catch (e) {
     next(e)

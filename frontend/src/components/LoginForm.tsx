@@ -11,6 +11,7 @@ import { useFormik } from 'formik'
 import { useRouter } from 'next/navigation'
 import { LoginValidation } from '@/lib/validation/auth-validation'
 import { signIn } from 'next-auth/react'
+import { toast } from '@/hooks/use-toast'
 
 interface LoginFormValues {
   username: string
@@ -35,12 +36,17 @@ const LoginForm = () => {
       })
 
       if (result?.error) {
-        console.log(result)
-        console.log('Sign in error:', result.error)
+        const errResponse = result.error == 'Username or password is wrong' ? 'Username or password is wrong' : 'Something went wrong'
+        toast({
+          variant: 'destructive',
+          title: 'Errors!',
+          description: errResponse,
+          duration: 4000
+        })
         setError(result.error)
       } else {
         setError(null)
-        router.push('/dashboard') // Redirect to the dashboard or another page
+        router.push('/dashboard')
       }
     }
   })
